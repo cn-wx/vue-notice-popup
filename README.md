@@ -34,4 +34,4 @@ export default {
 }
 ```
 
-## LICENSE: [MIT](!https://github.com/cn-wx/vue-notice-popup/blob/master/LICENSE)
+## LICENSE: ![MIT](https://github.com/cn-wx/vue-notice-popup/blob/master/LICENSE)
