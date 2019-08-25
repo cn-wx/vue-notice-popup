@@ -4,11 +4,14 @@
  * @license MIT                                              *
  *************************************************************/
 const VueNoticePopup = {};
+let [notificationVM, timer] = [null, false];
 
 // default options for the plugin
 const defaultOptions = {
+    type: 'default',
     autoClose: true,
-    timeDuration: 3000 // default duration is 3 seconds
+    timeDuration: 3000, // default duration is 3 seconds
+    width: 'auto'
 }
 
 VueNoticePopup.install = (Vue, options) => {
@@ -25,7 +28,67 @@ VueNoticePopup.install = (Vue, options) => {
         } else if (config) {
             option['type'] = config;
         }
-    }
+        
+        if (timer) {
+            clearTimeout(timer);
+            notificationVM.show = false;
+        }
+
+        if (!notificationVM) {
+            const notificationTemplate = Vue.extend({
+                data() {
+                    return {
+                        show: false,
+                        message,
+                        autoClose: option.autoClose,
+                        timeDuration: option.timeDuration,
+                        extStyle: {
+                            width: option.width
+                        }
+                    }
+                },
+                render(h) {
+                    if (!this.show) {
+                        return false;
+                    }
+                    return h(
+                        'div',
+                        {
+                            class: ['ui__notification_popup', `ui__notification_popup__${this.type}`],
+                            style: this.style,
+                            show: this.show,
+                            domProps: {
+                                innerHTML: this.message
+                            }
+                        }
+                    )
+                }
+            });
+            notificationVM = new notificationTemplate();
+            const template = notificationVM.$mount().$el;
+            document.body.appendChild(template);
+        }
+
+        notificationVM.message = message;
+        notificationVM.type = option.type;
+        notificationVM.autoClose = option.autoClose;
+        notificationVM.timeDuration = option.timeDuration;
+        notificationVM.extStyle.width = option.width;
+        notificationVM.show = true;
+
+        if (notificationVM.autoClose) {
+            timer = setTimeout(() => {
+                notificationVM.show = timer = false;
+            }, option.timeDuration);
+        }
+    };
+
+    ['default', 'success', 'warning', 'error'].forEach(type => {
+        Vue.prototype.$notification[type] = (message, config = {type}) => {
+            return Vue.prototype.$notification(message, config)
+        }
+    });
+
 }
 
 export default VueNoticePopup;
