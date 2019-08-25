@@ -1,4 +1,5 @@
-.ui__notification_popup__wrapper .ui__notification_popup {
+.ui__notification_popup__wrapper
+.ui__notification_popup {
     position: fixed;
     top: 100px;
     right: 10px;
@@ -13,16 +14,31 @@
     box-sizing: border-box;
     border: 1px solid #ebeef5;
 }
-.ui__notification_popup__wrapper .ui__notification_popup.ui__notification_popup__default {
+.ui__notification_popup__wrapper
+.ui__notification_popup.ui__notification_popup__default {
     background-color: #f4f4f5;
     color: #909399;
 }
-.ui__notification_popup__wrapper .ui__notification_popup.ui__notification_close_button {
+.ui__notification_popup.ui__notification_popup__success {
+    background-color: #f0f9eb;
+    color: #67c23a;
+}
+.ui__notification_popup.ui__notification_popup__warning {
+    background-color: #fdf6ec;
+    color: #e6a23c;
+}
+.ui__notification_popup.ui__notification_popup__error {
+    background-color: #fef0f0;
+    color: #f56c6c;
+}
+.ui__notification_popup__wrapper
+.ui__notification_popup.ui__notification_close_button {
     padding: 0;
     padding-right: 5px;
     height: auto;
 }
-.ui__notification_popup__wrapper .ui__notification_popup.ui__notification_close_button:before {
+.ui__notification_popup__wrapper
+.ui__notification_popup.ui__notification_close_button:before {
     content: 'x';
     top: 0;
     right: 0;
@@ -30,7 +46,8 @@
     font-weight: 300;
     font-family: Arial, sans-serif;
 }
-.ui__notification_popup__wrapper .ui__notification_popup.ui__notification_close_button:hover:before {
+.ui__notification_popup__wrapper
+.ui__notification_popup.ui__notification_close_button:hover:before {
     cursor: pointer;
     color: #000;
 }
