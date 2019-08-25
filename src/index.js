@@ -47,21 +47,48 @@ VueNoticePopup.install = (Vue, options) => {
                         }
                     }
                 },
+                methods: {
+                    closePopup() {
+                        this.show = false;
+                    }
+                },
                 render(h) {
                     if (!this.show) {
                         return false;
                     }
-                    return h(
-                        'div',
-                        {
-                            class: ['ui__notification_popup', `ui__notification_popup__${this.type}`],
-                            style: this.style,
-                            show: this.show,
-                            domProps: {
-                                innerHTML: this.message
-                            }
-                        }
-                    )
+                    if (!this.autoClose) {
+                        return ( h('div', {class: ['ui__notification_popup__wrapper']},
+                            [
+                                h('div',{
+                                    class: ['ui__notification_popup', `ui__notification_popup__${this.type}`],
+                                    style: this.style,
+                                    show: this.show,
+                                    domProps: {
+                                        innerHTML: this.message
+                                    }
+                                }),
+                                h('span', {
+                                    class: ['ui__notification_popup', 'ui__notification_close_button'],
+                                    on: {
+                                        click: this.closePopup
+                                    }
+                                })
+                            ]
+                        ))
+                    } else {
+                        return ( h('div', {class: ['ui__notification_popup__wrapper']},
+                            [
+                                h('div',{
+                                    class: ['ui__notification_popup', `ui__notification_popup__${this.type}`],
+                                    style: this.style,
+                                    show: this.show,
+                                    domProps: {
+                                        innerHTML: this.message
+                                    }
+                                })
+                            ]
+                        ))
+                    }
                 }
             });
             notificationVM = new notificationTemplate();
