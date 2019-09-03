@@ -3,20 +3,22 @@
 ## Usage
 
 Install
-```
+```javascript
 // TODO: upload to npm
 ```
 
 Import in main.js:
 
-```
+```javascript
 import Vue from 'vue';
 import './plugin/index.css'
 import VueNoticePopup from './plugin/index'
 Vue.use(VueNoticePopup)
 ```
+
 or
-```
+
+```javascript
 import Vue from 'vue';
 import './plugin/index.css'
 import VueNoticePopup from './plugin/index'
@@ -29,13 +31,15 @@ Vue.use(VueNoticePopup, {
 
 Use in Component：
 
-```
+```html
 <template>
     <div id="app">
         <button @click="showNotification1()">Default</button>
         <button @click="showNotification2()">Error</button>
     </div>
 </template>
+
+<script>
 export default {
     methods:{
         showNotification1() {
@@ -48,6 +52,7 @@ export default {
         }
     }
 }
+</script>
 ```
 
 ## LICENSE: [MIT](https://github.com/cn-wx/vue-notice-popup/blob/master/LICENSE)
